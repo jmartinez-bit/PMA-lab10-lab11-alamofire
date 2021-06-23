@@ -15,9 +15,12 @@ class IniciarSesionViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    var ref: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        ref = Database.database().reference()
     }
     
     
@@ -28,12 +31,13 @@ class IniciarSesionViewController: UIViewController {
             if error != nil {
                 print("Tenemos el siguiente error:\(error!)")
                 Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (user, error) in
-                    if(error != nil) {
+                    print("Intentamos crear un usuario")
+                    if error != nil {
                         print("Tenemos el siguiente error:\(error!)")
                     } else {
-                        print("El usuario fue creado exitosamente")
-                        Database.database().reference().child("usuarios").child((user?.user.uid)!).child("email").setValue(user?.user.email)
+                    self.ref.child("usuarios").child((user?.user.uid)!).child("email").setValue(user?.user.email)
                         
+                        print("El usuario fue creado exitosamente")
                         self.performSegue(withIdentifier: "Iniciarsesionsegue", sender: nil)
                     }
                 })

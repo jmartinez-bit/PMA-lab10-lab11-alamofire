@@ -12,22 +12,23 @@ import Firebase
 class ImagenViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var descripcionTextField: UITextField!
-
     @IBOutlet weak var elegirContactoBoton: UIButton!
     
     var imagePicker = UIImagePickerController()
+    var imagenID = NSUUID().uuidString
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        elegirContactoBoton.isEnabled = false
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         imageView.image = image
         imageView.backgroundColor = UIColor.clear
+        elegirContactoBoton.isEnabled = true
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
@@ -40,20 +41,30 @@ class ImagenViewController: UIViewController, UIImagePickerControllerDelegate, U
     @IBAction func elegirContactoTapped(_ sender: Any) {
         elegirContactoBoton.isEnabled = false
         let imagenesFolder = Storage.storage().reference().child("imagenes")
-        let imagenData = imageView.image!.pngData()!
+        let imagenData = imageView.image!.jpegData(compressionQuality: 0.1)!
         
-        imagenesFolder.child("\(NSUUID().uuidString).jpg").putData(imagenData, metadata: nil, completion: {(metadata, error) in print("Intentando subir la imagen")
+        imagenesFolder.child("\(imagenID).jpg").putData(imagenData, metadata: nil, completion: {(metadata, error) in print("Intentando subir la imagen")
             if error != nil {
                 print("Ocurrió un error:\(error!)")
             }else {
-                self.performSegue(withIdentifier: "seleccionarContactoSegue", sender: nil)
+                imagenesFolder.downloadURL{ (url, error) in
+                    guard let url = url else {
+                        return
+                    }
+                    print(url.absoluteString)
+                    print(url.absoluteURL)
+                    self.performSegue(withIdentifier: "seleccionarContactoSegue", sender: url.absoluteString)
+                }
             }
         })
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        let siguienteVC = segue.destination as! ElegirUsuarioViewController
+        siguienteVC.imagenURL = sender as! String
+        siguienteVC.descrip = descripcionTextField.text!
+        siguienteVC.imagenID = imagenID
     }
     /*
     // MARK: - Navigation

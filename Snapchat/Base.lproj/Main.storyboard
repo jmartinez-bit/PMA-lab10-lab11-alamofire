@@ -69,16 +69,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7" y="-164"/>
+            <point key="canvasLocation" x="-88" y="-173"/>
         </scene>
         <!--Snaps View Controller-->
         <scene sceneID="7WZ-90-6Sc">
             <objects>
-                <viewController id="g8j-3f-mDP" customClass="SnapsViewController" customModule="Snapchat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="g8j-3f-mDP" customClass="SnapsViewController" customModule="Snapchat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bJG-53-Zlf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FWF-dO-BtB">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KXm-MP-3HR" firstAttribute="bottom" secondItem="FWF-dO-BtB" secondAttribute="bottom" id="H6I-gu-Qgp"/>
+                            <constraint firstItem="FWF-dO-BtB" firstAttribute="leading" secondItem="KXm-MP-3HR" secondAttribute="leading" id="QOm-KQ-f8f"/>
+                            <constraint firstItem="KXm-MP-3HR" firstAttribute="trailing" secondItem="FWF-dO-BtB" secondAttribute="trailing" id="U74-uP-Khs"/>
+                            <constraint firstItem="FWF-dO-BtB" firstAttribute="top" secondItem="KXm-MP-3HR" secondAttribute="top" id="UAz-qD-ICx"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="KXm-MP-3HR"/>
                     </view>
                     <navigationItem key="navigationItem" id="sHZ-dX-d4D">
@@ -93,6 +105,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="FWF-dO-BtB" id="ggk-yr-QrJ"/>
+                        <segue destination="6Te-PK-psA" kind="show" identifier="versnapsegue" id="M2E-UQ-aGR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ogY-Ez-gUj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -207,6 +223,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="khZ-6S-1lZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="684" y="-164"/>
+        </scene>
+        <!--Ver Snap View Controller-->
+        <scene sceneID="GiE-b5-5NI">
+            <objects>
+                <viewController id="6Te-PK-psA" customClass="VerSnapViewController" customModule="Snapchat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="elV-eP-t6W">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zke-1j-Ab9">
+                                <rect key="frame" x="5" y="831" width="404" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RAi-c2-b46">
+                                <rect key="frame" x="10" y="98" width="394" height="723"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RAi-c2-b46" firstAttribute="leading" secondItem="w7L-2E-tXn" secondAttribute="leading" constant="10" id="7RR-P8-FCj"/>
+                            <constraint firstItem="w7L-2E-tXn" firstAttribute="trailing" secondItem="RAi-c2-b46" secondAttribute="trailing" constant="10" id="9Mk-a7-FiB"/>
+                            <constraint firstItem="zke-1j-Ab9" firstAttribute="leading" secondItem="w7L-2E-tXn" secondAttribute="leading" constant="5" id="G13-qJ-5zr"/>
+                            <constraint firstItem="w7L-2E-tXn" firstAttribute="bottom" secondItem="zke-1j-Ab9" secondAttribute="bottom" constant="10" id="Mfs-Kn-bbC"/>
+                            <constraint firstItem="w7L-2E-tXn" firstAttribute="trailing" secondItem="zke-1j-Ab9" secondAttribute="trailing" constant="5" id="Y7c-Bc-CC4"/>
+                            <constraint firstItem="RAi-c2-b46" firstAttribute="top" secondItem="w7L-2E-tXn" secondAttribute="top" constant="10" id="YZ7-en-WHE"/>
+                            <constraint firstItem="zke-1j-Ab9" firstAttribute="top" secondItem="RAi-c2-b46" secondAttribute="bottom" constant="10" id="nHL-1L-Pir"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="w7L-2E-tXn"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="RAi-c2-b46" id="o0w-E3-BS8"/>
+                        <outlet property="label" destination="zke-1j-Ab9" id="QGu-dG-QWt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XXo-wO-sCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1380" y="542"/>
         </scene>
     </scenes>
 </document>

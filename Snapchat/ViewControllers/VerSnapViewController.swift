@@ -27,7 +27,9 @@ class VerSnapViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Database.database().reference().child("usuarios").child(Auth.auth().currentUser?.uid ?? "").child("snaps").child(snap.id).removeValue()
+        
+        Database.database().reference().child("usuarios").child(Auth.auth().currentUser!.uid)
+            .child("snaps").child(snap.id).removeValue()
         
         Storage.storage().reference().child("imagenes").child("\(snap.imagenID).jpg").delete{(error) in
             print("Se eliminón la imagen correctamente")
